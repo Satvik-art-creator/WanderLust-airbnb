@@ -41,7 +41,7 @@ main()
 app.listen(port, () => console.log(`server is running on port ${port}`));
 
 const sessionOptions = {
-    secret: "Satvik@777",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
