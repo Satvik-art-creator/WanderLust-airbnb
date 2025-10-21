@@ -1,0 +1,145 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ******* navbar css ************ */
+
+.navbar{
+    background-color: white!important;
+    height: 5rem;
+}
+
+.navbar input{
+    padding-left: 2.8rem;
+    border-radius: 24px;
+}
+
+.navbar .search-btn{
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    padding: 5px 17px;
+    background-color: #FF4548;
+    color: #fff;
+    border-radius: 24px;
+}
+
+.navbar .search-btn i{
+    margin-right: 7px;
+}
+
+.nav-link{
+    color: #222222!important;
+}
+
+/* ******* filters css ************ */
+
+div.filters{
+    margin-top: 25px;
+    display: flex;
+    align-items: baseline;
+}
+
+div.filters div.filter{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 15px;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+div.filters div.filter:hover{
+    opacity: 1;
+}
+
+div.filters div.taxTogg{
+    border: 1px solid #000;
+    padding: 10px 30px;
+    border-radius: 18px;
+    margin-left: 2.5rem;
+}
+
+/* ******* card css ************ */
+
+div.showList{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+div.showList h1, img{
+    margin: 0 auto;
+}
+
+div.row a{
+    text-decoration: none;
+}
+
+button.margin{
+    margin-left: 15px;
+}
+
+div.cardShow{
+    margin: 0 auto;
+    border: none;
+}
+
+div.cardShow img{
+    border-radius: 20px;
+}
+
+div.cardShow img.cardImg:hover{
+    opacity: 0.6;
+    transition: opacity 0.2ms;
+}
+
+/* ******* footer ************ */
+
+footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(128, 128, 128, 0.352);
+    height: 8rem;
+    /* position: absolute; */
+    /* bottom: 0; */
+    width: 100%;
+}
+
+footer.mainFooter{
+    position: relative;
+}
+
+footer div.socIcons a{
+    text-decoration: none;
+    color: #000;
+}
+
+/* ******* Map ************ */
+
+#map{
+    height: 400px;
+    width: 80vh;
+}
+
+/*Responsiveness*/
+
+@media (max-width: 768px) {
+    /* navbar */
+    .navbar a img{
+        width: 8rem!important;
+    }
+
+    #navbarNav{
+        text-align: center;
+    }
+
+    div.container{
+        margin-top: 11rem;
+    }
+}
