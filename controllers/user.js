@@ -1,21 +1,20 @@
 const User = require("../models/user.js");
 
-
-
 module.exports.renderSignUp = async (req, res) => {
     res.render("users/signup");
 }
 
 module.exports.submitSignUp = async (req,res) => {
     try{
-        let {username, email, password} = req.body;
-        const newUser = new User({email, username});
+        let {name, username, email, password} = req.body;
+        const newUser = new User({name, email, username});
         const regUser = await User.register(newUser, password);
-        // console.log(regUser);
+        // console.log(regUser);    
+        // console.log(name);
 
        req.login(regUser, (err) => {
         if(err) return next(err);
-        req.flash("success", "Welcome to the WanderLust!!");
+        req.flash("success", `Hey ${name}, Welcome to the WanderLust!!`);
         res.redirect("/listings");
        });
     } catch(err) {

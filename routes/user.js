@@ -26,6 +26,19 @@ router
     wrapAsync(userController.submitLogin)
   );
 
+  router.get('/login/federated/google', passport.authenticate('google'));
+  router.get('/oauth2/redirect/google', passport.authenticate('google', {
+    failureRedirect: '/login',
+    failureFlash: true,
+  }),
+    (req, res) => {
+    console.log(req.user);
+    const name = req.user.name || '';
+    req.flash('success', `Hey ${name}, Welcome to the WanderLust!!`);
+    res.redirect('/listings');
+  }
+  );
+
 //logout
 router.get("/logout", userController.logOut);
 

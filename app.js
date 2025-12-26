@@ -8,6 +8,7 @@ const session = require("express-session");
 const flash = require("express-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
+const GoogleStrategy = require("passport-google-oidc");
 
 if(process.env.NODE_ENV != "production") {
     require("dotenv").config();
@@ -60,6 +61,53 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: '/oauth2/redirect/google',
+  scope: [ 'openid', 'profile', 'email' ]
+}, async function verify(issuer, profile, cb) {
+    try {
+      // console.log("OIDC profile:", profile);
+      const email = profile.emails?.[0]?.value;
+      const name = profile.displayName || profile.name?.givenName || "Google User";
+
+      // 1️⃣ Try to find user by Google ID
+      let user = await User.findOne({ googleId: profile.id });
+
+      if (user) {
+        return cb(null, user);
+      }
+
+      // 2️⃣ Try to find existing local user by email
+      if (email) {
+        user = await User.findOne({ email });
+
+        if (user) {
+          // 🔗 Link Google account
+          user.googleId = profile.id;
+          await user.save();
+          return cb(null, user);
+        }
+      }
+
+      // 3️⃣ Create brand new user
+      const newUser = new User({
+        name,
+        email,
+        googleId: profile.id,
+        username: `${name}_${Math.floor(Math.random()*9)+1}`
+      });
+
+      await newUser.save();
+      return cb(null, newUser);
+
+    } catch (err) {
+      // console.error("OIDC verify error:", err);
+      return cb(err);
+    }
+}));
 
 app.use((req, res, next) => {
     res.locals.succMsg = req.flash("success");

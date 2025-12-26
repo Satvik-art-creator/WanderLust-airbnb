@@ -6,6 +6,21 @@
   <div class="col-6 offset-3">
     <form action="/signup" method="POST" class="needs-validation" novalidate>
       <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          class="form-control"
+          pattern="^[A-Za-z]+( [A-Za-z]+)*$"
+          title="Only alphabets and single spaces between words are allowed"
+          placeholder="Enter you name"
+          required
+        />
+        <div class="valid-feedback">Nice!</div>
+      </div>
+
+      <div class="mb-3">
         <label for="username" class="form-label">Username</label>
         <input
           type="text"
@@ -39,8 +54,11 @@
           id="password"
           class="form-control"
           placeholder="Enter password"
+          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@_#])[A-Za-z\d@_#]{8,}$"
+          title="Password must be at least 8 characters long, include one uppercase letter, one lowercase letter, one number, and one special character (@, _, #)."
           required
         />
+        <div class="form-text">Password must be at least 8 characters long, include one uppercase letter, one lowercase letter, one number, and one special character (@, _, #).</div>
         <div class="valid-feedback">Looks strong!</div>
       </div>
 
@@ -48,5 +66,9 @@
     </form>
 
     <h6>Already have an account? <span><a href="/login">Log in</a></span></h6>
+
+    <strong class="text-center">OR</strong>
+    <br/>
+    <a href="/login/federated/google"><button class="btn btn-primary mt-2 mb-3">Sign in with Google</button></a>
   </div>
 </div>
