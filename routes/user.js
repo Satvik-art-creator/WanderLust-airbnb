@@ -32,7 +32,7 @@ router
     failureFlash: true,
   }),
     (req, res) => {
-    console.log(req.user);
+    // console.log(req.user);
     const name = req.user.name || '';
     req.flash('success', `Hey ${name}, Welcome to the WanderLust!!`);
     res.redirect('/listings');

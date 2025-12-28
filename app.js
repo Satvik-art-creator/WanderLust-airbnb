@@ -97,7 +97,7 @@ passport.use(new GoogleStrategy({
         name,
         email,
         googleId: profile.id,
-        username: `${name}_${Math.floor(Math.random()*9)+1}`
+        username: `${googleid.slice(0, 7)}`
       });
 
       await newUser.save();
@@ -122,7 +122,7 @@ app.use("/", userRouter);
 
 // for PageNotFound
 app.all("*", (req,res,next)=>{
-    next(new ExpError(404, "Page Not Found!"));
+    next(new ExpError(404, "Page Not Found!")); 
 });
 
 //for error handling

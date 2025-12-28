@@ -10,6 +10,63 @@ module.exports.index = async (req, res) => {
   res.render("listings/index", { allListings });
 };
 
+module.exports.searchLists = async (req, res) => {
+  const { location } = req.query;
+
+  if (!location || !location.trim()) {
+    return res.redirect("/listings");
+  }
+
+  const allListings = await Listing.find({
+    location: { $regex: location.trim(), $options: "i" }
+  });
+  
+  if(allListings.length == 0){
+    req.flash("error", `No listings found in this ${location} location`);
+    res.redirect("/listings");
+  }
+
+  res.render("listings/index", { allListings });
+};
+
+module.exports.trendLists = async (req, res) => {
+  const allListings = await Listing.aggregate([
+  {
+    $lookup: {
+      from: "reviews",                
+      localField: "reviews",           
+      foreignField: "_id",
+      as: "reviewDocs"
+    }
+  },
+  {
+    $addFields: {
+      highRatingCount: {
+        $size: {
+          $filter: {
+            input: "$reviewDocs",
+            as: "review",
+            cond: { $gte: ["$$review.rating", 4] } 
+          }
+        }
+      }
+    }
+  },
+  {
+    $match: {
+      highRatingCount: { $gte: 5 }
+    }
+  }
+]);
+
+if(allListings.length == 0){
+    req.flash("error", `Nothing in trend (Lists must have atleast 5 reviews of 4 or more rating, to be in trend)`);
+    res.redirect("/listings");
+}
+
+res.render("listings/index", { allListings });
+}
+
 module.exports.renderNewForm = (req, res) => {
   res.render("listings/new");
 };

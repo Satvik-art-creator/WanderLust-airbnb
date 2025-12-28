@@ -10,6 +10,10 @@ const upload = multer({ storage });
 //index page
 router.get("/", listingController.index);
 
+router.get("/search", wrapAsync(listingController.searchLists));
+
+router.get("/trending", wrapAsync(listingController.trendLists));
+
 //new page
 router
   .route("/new")
