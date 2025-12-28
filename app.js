@@ -5,6 +5,7 @@ const path = require("path");
 const engine = require("ejs-mate");
 const methodOverride = require("method-override");
 const session = require("express-session");
+const MongoStore = require('connect-mongo');
 const flash = require("express-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -31,8 +32,10 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "/public")));
 app.use(methodOverride("_method"));
 
+let db_url=process.env.ATLASDB_URL;
+
 async function main(){
-    await mongoose.connect("mongodb://127.0.0.1:27017/wanderlust");
+    await mongoose.connect(db_url);
 }
 
 main()
@@ -40,6 +43,19 @@ main()
     .catch((err) => console.log(`Database not connected to server. Error: ${err}`));
 
 app.listen(port, () => console.log(`server is running on port ${port}`));
+
+const store= MongoStore.create({
+  mongoUrl: db_url,
+  collectionName: "sessions",
+  crypto:{
+    secret: process.env.SECRET
+  },
+  touchAfter: 24*3600
+});
+
+store.on("error", ()=>{
+  console.log("Error on mongodb store ", err);
+})
 
 const sessionOptions = {
     secret: process.env.SECRET,
