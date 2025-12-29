@@ -97,9 +97,9 @@ http://localhost:3000/listings
 ```
 🧪 Validation & Security
 
-Input validation using Joi
-Secure authentication with Passport
-Encrypted sessions stored in MongoDB
+Input validation using Joi, 
+Secure authentication with Passport, 
+Encrypted sessions stored in MongoDB, 
 Protected routes for authorized users only
 
 📦 NPM Packages Used
@@ -126,6 +126,6 @@ This project is licensed under the ISC License.
 
 ⭐ Acknowledgements
 
-Inspired by Airbnb
-Mapbox & Cloudinary documentation
+Inspired by Airbnb, 
+Mapbox & Cloudinary documentation, 
 Open-source Node.js community
