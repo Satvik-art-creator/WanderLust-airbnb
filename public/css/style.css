@@ -4,11 +4,15 @@
     box-sizing: border-box;
 }
 
+body{
+    overflow-x: hidden;
+}
+
 /* ******* navbar css ************ */
 
 .navbar{
     background-color: white!important;
-    height: 5rem;
+    height: auto;
 }
 
 .navbar input{
@@ -24,6 +28,7 @@
     background-color: #FF4548;
     color: #fff;
     border-radius: 24px;
+    white-space: nowrap;
 }
 
 .navbar .search-btn i{
@@ -40,6 +45,20 @@ div.filters{
     margin-top: 25px;
     display: flex;
     align-items: baseline;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    gap: 0;
+    padding-bottom: 10px;
+}
+
+div.filters::-webkit-scrollbar{
+    height: 4px;
+}
+
+div.filters::-webkit-scrollbar-thumb{
+    background: #ccc;
+    border-radius: 4px;
 }
 
 div.filters div.filter{
@@ -49,6 +68,12 @@ div.filters div.filter{
     margin: 0 15px;
     opacity: 0.7;
     cursor: pointer;
+    flex-shrink: 0;
+}
+
+div.filters div.filter p{
+    white-space: nowrap;
+    font-size: 0.85rem;
 }
 
 div.filters div.filter:hover{
@@ -60,6 +85,8 @@ div.filters div.taxTogg{
     padding: 10px 30px;
     border-radius: 18px;
     margin-left: 2.5rem;
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 /* ******* card css ************ */
@@ -92,9 +119,43 @@ div.cardShow img{
     border-radius: 20px;
 }
 
+div.cardShow img.cardImg{
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
 div.cardShow img.cardImg:hover{
     opacity: 0.6;
     transition: opacity 0.2ms;
+}
+
+/* ******* Show page image ************ */
+
+.show-listing-img{
+    width: 100%;
+    max-width: 50vw;
+    height: auto;
+    min-height: 250px;
+    max-height: 450px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+/* ******* Edit page original image ************ */
+
+.edit-original-img{
+    max-width: 250px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* ******* Review cards ************ */
+
+.review-card{
+    margin-bottom: 1rem;
 }
 
 /* ******* footer ************ */
@@ -105,7 +166,8 @@ footer{
     align-items: center;
     flex-direction: column;
     background-color: rgba(128, 128, 128, 0.352);
-    height: 8rem;
+    min-height: 8rem;
+    padding: 1.5rem 1rem;
     /* position: absolute; */
     /* bottom: 0; */
     width: 100%;
@@ -124,13 +186,89 @@ footer div.socIcons a{
 
 #map{
     height: 400px;
-    width: 80vh;
+    width: 100%;
+    max-width: 80vh;
 }
 
-/*Responsiveness*/
+/* ******* Responsiveness ************ */
 
+/* Mobile — up to 576px */
+@media (max-width: 576px) {
+    /* Navbar */
+    .navbar a img{
+        width: 7rem!important;
+    }
+
+    #navbarNav{
+        text-align: center;
+    }
+
+    .navbar .search-btn{
+        margin-left: 0;
+        margin-top: 0.5rem;
+        justify-content: center;
+    }
+
+    .navbar-nav .nav-link{
+        padding: 0.6rem 1rem;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #navbarNav form.d-flex{
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+    }
+
+    #navbarNav form.d-flex input{
+        width: 100%;
+    }
+
+    /* Filters */
+    div.filters{
+        margin-top: 15px;
+    }
+
+    div.filters div.filter{
+        margin: 0 10px;
+    }
+
+    div.filters div.taxTogg{
+        padding: 8px 16px;
+        margin-left: 1rem;
+        font-size: 0.85rem;
+    }
+
+    /* Cards */
+    div.cardShow img.cardImg{
+        height: 220px;
+    }
+
+    /* Show page */
+    .show-listing-img{
+        max-width: 100%;
+        min-height: 200px;
+        max-height: 300px;
+    }
+
+    /* Map */
+    #map{
+        height: 280px;
+        max-width: 100%;
+    }
+
+    /* Buttons */
+    button.margin{
+        margin-left: 10px;
+    }
+}
+
+/* Tablet — up to 768px */
 @media (max-width: 768px) {
-    /* navbar */
+    /* Navbar */
     .navbar a img{
         width: 8rem!important;
     }
@@ -139,7 +277,41 @@ footer div.socIcons a{
         text-align: center;
     }
 
-    div.container{
-        margin-top: 11rem;
+    #navbarNav form.d-flex{
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+    }
+
+    #navbarNav form.d-flex input{
+        width: 100%;
+    }
+
+    .navbar .search-btn{
+        margin-left: 0;
+        justify-content: center;
+    }
+
+    /* Show page */
+    .show-listing-img{
+        max-width: 90%;
+    }
+
+    /* Map */
+    #map{
+        max-width: 100%;
+    }
+
+    /* Cards */
+    div.cardShow img.cardImg{
+        height: 260px;
+    }
+}
+
+/* Ultra-wide — constrain content */
+@media (min-width: 1400px) {
+    div.showList{
+        max-width: 1200px;
+        margin: 0 auto;
     }
 }

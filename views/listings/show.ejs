@@ -10,9 +10,8 @@
   <div class="card cardShow mt-3">
     <img
       src="<%= listData.image.url %>"
-      class="card-img-top"
+      class="card-img-top show-listing-img"
       alt="Listing image"
-      style="height: 35vh; width: 50vw"
     />
     <div class="card-body">
       <h6 class="card-title"><%= listData.description %></h6>
@@ -50,11 +49,11 @@
 
     <% if(listData.reviews.length) { %>
     <hr />
-    <section class="d-flex row">
+    <section class="row g-3">
       <h1 class="mb-3">Reviews</h1>
-      <br />
       <% for(review of listData.reviews) { %>
-      <div class="card col-md-5 mt-2 ms-3" style="margin: 0 auto">
+      <div class="col-12 col-md-6">
+      <div class="card review-card h-100">
         <div class="card-body">
           <h5 class="card-title">@<%=review.author.username%></h5>
           <p class="starability-result card-subtitle" style="font-size: 10px;" data-rating="<%=review.rating%>"></p>
@@ -69,6 +68,7 @@
           </form>
           <%}%>
         </div>
+      </div>
       </div>
       <%}%>
     </section>
